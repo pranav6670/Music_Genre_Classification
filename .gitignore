@@ -144,5 +144,5 @@ cython_debug/
 input/
 models/
 .idea/
-.DS_Store/
+.DS_Store
 img_data/
