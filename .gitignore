@@ -146,3 +146,6 @@ models/
 .idea/
 .DS_Store
 img_data/
+clean/
+logs/
+predict/
