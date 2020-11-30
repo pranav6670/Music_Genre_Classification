@@ -70,7 +70,7 @@ def make_prediction(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Audio Classification Training')
-    parser.add_argument('--model_fn', type=str, default='models/conv1d.h5',
+    parser.add_argument('--model_fn', type=str, default='models/lstm.h5',
                         help='model file to make predictions')
     parser.add_argument('--pred_fn', type=str, default='y_pred',
                         help='fn to write predictions in logs dir')
