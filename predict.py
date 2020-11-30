@@ -10,6 +10,19 @@ from tqdm import tqdm
 
 from clean import downsample_mono, envelope
 
+ans = {
+    0: 'blues',
+    1: 'classical',
+    2: 'country',
+    3: 'disco',
+    4: 'hiphop',
+    5: 'jazz',
+    6: 'metal',
+    7: 'pop',
+    8: 'reggae',
+    9: 'rock'
+}
+
 
 def make_prediction(args):
     model = load_model(args.model_fn,
@@ -45,19 +58,23 @@ def make_prediction(args):
         y_mean = np.mean(y_pred, axis=0)
         y_pred = np.argmax(y_mean)
         real_class = os.path.dirname(wav_fn).split('/')[-1]
-        print('Actual class: {}, Predicted class: {}'.format(real_class, classes[y_pred]))
+        # print('Actual class: {}, Predicted class: {}'.format(real_class, classes[y_pred]))
         results.append(y_mean)
+        # print(y_pred)
+        for key, value in ans.items():
+            if y_pred == key:
+                print(value)
 
-    np.save(os.path.join('logs', args.pred_fn), np.array(results))
+    # np.save(os.path.join('logs', args.pred_fn), np.array(results))
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Audio Classification Training')
-    parser.add_argument('--model_fn', type=str, default='models/lstm.h5',
+    parser.add_argument('--model_fn', type=str, default='models/conv1d.h5',
                         help='model file to make predictions')
     parser.add_argument('--pred_fn', type=str, default='y_pred',
                         help='fn to write predictions in logs dir')
-    parser.add_argument('--src_dir', type=str, default='clean',
+    parser.add_argument('--src_dir', type=str, default='predict',
                         help='directory containing wavfiles to predict')
     parser.add_argument('--dt', type=float, default=1.0,
                         help='time in seconds to sample audio')
